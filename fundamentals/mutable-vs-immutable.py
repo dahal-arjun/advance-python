@@ -321,8 +321,199 @@ Lists:
 """
 
 digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+print(id(digits))
 print(digits[0])
 print(digits[3:7])
 print(digits[2::2])
 print(digits[2::2])
+digits[1] = 2  # mutation
+print(id(digits))
 
+numbers = [1, 2, 314]
+print(id(numbers))
+print(id(numbers[2]))
+numbers[2] = 3  # mutation
+print(id(numbers[2]))
+print(numbers)
+
+"""
+After this operation, you’ve lost all the references to your old 314 value.
+Because of this, Python garbage-collects the old 314 and
+frees the corresponding memory.
+"""
+letters = ["A", "B", "c", "d"]
+letters[2:] = ["C", "D"]
+print(letters)
+"""
+In this example, you mutate your letters list by replacing the letters
+from index 2 up to the end of the list with uppercase letters.
+"""
+
+# Regular operator
+letters = ["A", "B", "C"] * 3
+letters
+
+
+# Augmented operator
+letters = ["A", "B", "C"]
+print(id(letters))
+
+letters *= 3
+print(letters)
+
+print(id(letters))
+
+
+"""
+Both mutable and immutable sequences support the += and *= augmented assignment
+operators, but they do so differently. Mutable sequences like lists support the
++= operator through the .__iadd__() method, which performs an
+in-place addition.
+
+Similarly, mutable sequences support the *= operator through the .__imul__()
+method, which also performs the operation in place, modifying the underlying
+sequence.
+
+In contrast, immutable sequences, such as tuples and strings, don’t have the
+.__iadd__() and .__imul__() methods. Instead, augmented concatenations and
+repetitions fall back to calling  .__add__() and .__mul__(), respectively.
+These two methods don’t modify the underlying sequence in place
+but return new sequences.
+
+"""
+
+"""
+Dictionary:
+    The keys of a dictionary work as unique identifiers that hold references to
+    specific values. In other words, keys are like variables defined within a
+    dictionary. You can use keys to access and mutate the values stored in a
+    given dictionary.
+"""
+inventory = {"apple": 100, "orange": 80, "banana": 120}
+print(inventory)
+inventory["orange"] = 140  # Change
+print(inventory)
+inventory["lemon"] = 200  # Add
+print(inventory)
+del inventory["banana"]  # Remove
+print(inventory)
+# this should throw error KeyError as key is not found del inventory["grape"]
+print(inventory)
+
+
+"""
+: Unfortunately, Python doesn’t have a built-in immutable dictionary-like type.
+This type would be beneficial in situations where you need to cache function
+calls that take dictionaries as arguments.
+Caching requires the arguments to be hashable,
+A quick solution to this caching issue would be to transform the dictionaries
+into tuples of key-value pairs with the .items() method.
+
+the keys in a dictionary must be unique. You can’t have duplicate keys.
+Keys also have another important constraint. They must be hashable objects.
+
+For an object to be hashable, you must be able to pass it to a hash function
+and get a unique hash code. To achieve this, your object must be unchangeable.
+In other words, the object’s value must never change during its lifetime.
+
+According to this definition, immutable types, such as numbers, Booleans, and
+strings, are hashable.
+That means you can use them as dictionary keys.
+
+There’s an important exception to this statement about immutable types.
+Tuples are only hashable when all their items are also hashable.
+Remember that tuples can store mutable objects,
+in which case the underlying tuple won’t be hashable. You’ll learn more about
+this specific behavior in the section Mutable Objects in Tuples.
+
+In contrast, mutable types, such as lists, dictionaries, and sets,
+can’t work as dictionary keys because they’re not hashable.
+The reason? Their values can change during their lifetime.
+
+Finally, dictionaries also support what’s called the union operator,
+represented by the pipe symbol (|). This operator allows you to create
+a new dictionary by merging key-value pairs from two existing dictionaries.
+
+"""
+
+inventory = {"apples": 42} | {"bananas": 24}
+inventory
+
+
+# Augmented operator
+inventory = {"apples": 42}
+print(id(inventory))
+
+inventory |= {"bananas": 24}
+print(inventory)
+
+print(id(inventory))
+
+"""
+Sets:
+    If you compare sets to lists, then you’ll find two main differences.
+    First, sets don’t keep their data in any specific order, so you can’t use
+    indices to access individual items.
+    Second, sets don’t keep duplicate items, while lists do.
+    Sets and dictionaries are closely related, though. In Python, a set works
+    as a special dictionary that contains only keys instead of key-value pairs.
+    Because of this characteristic, the items in a set must be hashable and
+    unique.
+"""
+fruits = {"apple", "orange", "banana"}
+fruits.add("lemon")
+print(fruits)
+
+fruits.add("orange")
+print(fruits)
+
+
+fruits.update({"grape", "orange"})
+print(fruits)
+
+"""
+Python’s sets also implement operations from the original mathematical sets,
+including union, intersection, difference, and symmetric difference.
+All these operations return a new set object rather than modify the target
+set in place.
+
+Python sets also support some operators that allow you to perform
+set operations on two existing sets.
+"""
+
+# Regular operators
+{"apple", "orange"} | {"banana"}  # Union
+
+{"apple", "orange"} & {"apple"}  # Intersection
+
+{"apple", "orange"} - {"apple", "banana"}  # Difference
+
+{"apple", "orange"} ^ {"apple", "banana"}  # Symmetric difference
+
+
+# Augmented operators
+fruits = {"apple", "orange"}
+print(id(fruits))
+
+fruits |= {"banana"}  # Augmented union
+print(fruits)
+
+print(id(fruits))
+
+
+fruits = {"apple", "orange"}
+print(id(fruits))
+
+fruits &= {"apple"}  # Augmented intersection
+print(fruits)
+
+print(id(fruits))
+
+"""
+Opposite Variations of Sets and Bytes
+Python also provides two lesser-known built-in types that provide variations
+for the set and bytes types. For example, if you need an immutable set-like
+data type, then you can take advantage of the built-in frozenset type.
+Similarly, if you need a mutable bytes-like type, then you can use the
+built-in bytearray type.
+"""
