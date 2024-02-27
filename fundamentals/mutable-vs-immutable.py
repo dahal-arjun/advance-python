@@ -819,4 +819,277 @@ It also makes your tuples unhashable, which prevents you from using
 them as dictionary keys
 """
 
+"""
+Concatenating Many Strings
+"""
+multiple_strings = "Hello" + "," + " " + "World" + "!"
+print(multiple_strings)
+
+"""
+Here we are creating multiple strings as temporary variables
+String is Immutable and While using + we are creating a new
+copy of each sting.
+"""
+"""
+Better alternative will be using .join method of string.
+Join accepts the iterables as input and is efficient in
+doing the concatination.
+"""
+using_joined = "".join(["Hello", ",", " ", "World", "!"])
+print(using_joined)
+
+
+"""
+Mutability in Custom Classes
+
+When you are creating a class they are mutable.
+The user defined classes are mutable class.
+You can mutate them in several ways.
+- Add or delete class and instance attributes dynamically
+- Change or reassign the value of class and instance attributes
+"""
+
+
+class User:
+    pass
+
+
+print(dir(User))
+
+"""
+User inherits all these attributes from the object class
+which is the default parent class of every Python class.
+you can provide class attributes and methods dynamically using dot
+notation and an assignment like in User.attr = value.
+"""
+
+"""
+We are creating an attribute for our class using . operator
+here we are creating an attribute called name to the class
+we are then assigning Arjun as the value to our name attr.
+"""
+User.name = "Arjun"
+
+
+"""
+we are creating a function called init. This looks like the class's
+dunder method but it's just a simple function in this step.
+"""
+
+
+def __init__(self, name, age):
+    self.name = name
+    self.age = age
+
+
+"""
+Here we are assigning our __init__ method to the classe's dunder method
+meaning we are defining the __init__ function in two step. OR I should
+say overriding the __init__ method.
+"""
+
+User.__init__ = __init__
+
+print(dir(User))
+
+
+"""
+What just happened?
+
+we have managd to create an instance of user,
+we also assigned our custom __init__ method to the user.
+We also managed to add values to the user.
+"""
+user = User("Arjun", 23)
+print(user.name)
+print(user.age)
+
+"""
+When we print user using dir() we can see our custom attrs i.e.
+name and age are listed in the console.
+"""
+print(dir(user))
+
+"""
+Custom classes and their instances are mutable because
+they keep their attributes and methods in a special
+dictionary called .__dict__.
+Both the class and the instance will have a .__dict__ dictionary:
+"""
+
+"""
+When we print the __dict__ representation of our class User.
+It will print the dict of the values and the arttributes
+in our case we had defined the custom attribute called name
+and assigned "Arjun" to that name. We can see that when we
+print the dict of the class.
+"""
+print(User.__dict__)
+
+"""
+When we print the user where we created the object of User class.
+We can see the name and age and their values, inside the dict.
+"""
+print(user.__dict__)
+
+
+"""
+The User.__dict__ dictionary is a private namespace for the class object.
+There you’ll find class attributes and methods, such as .name and .__init__(),
+respectively.
+"""
+"""
+Similarly, user.__dict__ holds instance attributes and their values
+for the current instance, user.
+"""
+
+"""
+Finally, you can also delete an
+attribute from a class or an instance using the del statement:
+"""
+del user.age
+print(user.__dict__)
+
+"""
+TODO: more research on the magic methods.
+"""
+
+"""
+Mutability of Attributes
+The second dimension of class and instance mutability is the possibility of
+changing the value of class and instance attributes, by either mutating them
+or reassigning them.
+"""
+
+
+class Book:
+    def __init__(self, title):
+        self.title = title
+
+
+thinking_fast_and_slow = Book("Thinking Fast")
+thinking_fast_and_slow.title = "Thinking Fast & Slow"
+print(thinking_fast_and_slow.title)
+
+
+"""
+what happened?
+we first created the book with the title Thinking Fast
+once that's done we again modified the title and appended
+& Slow in the title
+Classic Example of mutation.
+"""
+
+"""
+Techniques to Control Mutability in Custom Classes.
+Defining a .__slots__ class attribute
+Providing custom .__setattr__() and .__delattr__() methods
+Using read-only properties
+Relying on descriptors with an appropriate .__set__() method
+Using an immutable class, such as a named tuple or a data class
+"""
+
+"""
+Defining a .__slots__ Class Attribute.
+Python allows you to create classes that prevent the addition of
+new instance attributes.
+"""
+
+
+class Book:
+    __slots__ = ("title", )
+
+    def __init__(self, title):
+        self.title = title
+
+
+"""
+What does __slots__ do?
+it won't let you create additional args which are not defined in
+slots.
+"""
+new_book = Book("Testing")
+print(new_book.title)
+# new_book.new_arg = "arg"
+
+"""
+Unfortunately, the .__slots__ attribute doesn’t prevent you from adding new
+class attributes and methods dynamically:
+"""
+Book.publisher = "Example"
+print(dir(Book))
+
+
+"""
+Even if you define a .__slots__ attribute, you won’t be able to prevent your
+users from removing allowed attributes from your class:
+"""
+del new_book.title
+# print(new_book.title)
+
+
+"""
+Providing Custom .__setattr__() and .__delattr__() Methods
+"""
+
+"""
+Python automatically calls the .__setattr__() method when you use an attribute
+in an assignment statement. Similarly,
+Python calls the .__delattr__() method when you run a del statement to remove a
+given attribute.
+"""
+
+"""
+You can provide your own implementations of these methods to prevent these
+mutations from happening in your classes:
+"""
+
+
+class Immutable:
+    def __init__(self, value):
+        super().__setattr__("value", value)
+
+    def __setattr__(self, name, attr_value):
+        raise AttributeError(f"can't set attribute '{name}'")
+
+    def __delattr__(self, name):
+        raise AttributeError(f"can't delete attribute '{name}'")
+
+
+gravity = Immutable(9.78)
+print(gravity.value)
+
+# gravity.value = 9.8
+
+
+"""
+This class provides custom implementations of .__setattr__() and .__delattr__()
+The former raises an AttributeError when you try to change the value of an
+existing attribute or when you try to add a new one.
+
+Similarly, the .__delattr__() method raises an AttributeError when you try to
+delete the .value attribute using the del statement.
+"""
+
+fruits = Immutable(["apple", "orange", "banana"])
+print(fruits.value)
+
+# fruits.value = 42
+
+fruits.value.append("lemon")
+print(fruits.value)
+
+
+del fruits.value[0]
+print(fruits.value)
+
+"""
+In this example, you can’t reassign .value to hold the number 42 because your
+class is immutable in that sense. However, you can change the current value of
+this attribute because the contained object is mutable.
+
+In this regard, your Immutable class behaves similarly to Python tuples, which
+are immutable by definition but can store mutable objects that you can mutate
+at will.
+"""
 
