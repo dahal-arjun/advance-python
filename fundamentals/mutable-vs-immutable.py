@@ -1093,3 +1093,31 @@ are immutable by definition but can store mutable objects that you can mutate
 at will.
 """
 
+
+class Point:
+    def __init__(self, x, y):
+        self._x = x
+        self._y = y
+
+    @property
+    def x(self):
+        return self._x
+
+    @property
+    def y(self):
+        return self._y
+
+    def __repr__(self):
+        return f"{type(self).__name__}(x={self.x}, y={self.y})"
+
+
+"""
+your Point class has two properties, .x and .y.
+These properties only have getter methods.
+They don’t have setter methods.
+Because of this, your .x and .y coordinates are read-only.
+"""
+point = Point(10, 30)
+print(point.x)
+
+# point.x = 7
