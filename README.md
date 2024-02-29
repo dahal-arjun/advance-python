@@ -38,4 +38,8 @@ Being better than today, when I look back, I should have some more knowledge and
 Right now its like walking on dark road with the help of a small matchstick and limited visibility<br>
 Would love to widen the visibility and see other unseen things.
 
+Topics Covered:
+- [x] Mutable vs Immutable
+- 
+
 
