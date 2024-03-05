@@ -40,6 +40,8 @@ Would love to widen the visibility and see other unseen things.
 
 Topics Covered:
 - [x] Mutable vs Immutable
-- 
+- [x] Built In Methods (will continue)
+- [ ] Decorators
+- [x] Context Manager (syncronus and asyncronus) 
 
 
