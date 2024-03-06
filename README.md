@@ -43,4 +43,4 @@ Topics Covered:
 - [x] Built In Methods (will continue)
 - [ ] Decorators
 - [x] Context Manager (syncronus and asyncronus) 
-- [ ] Parallel Processing and Multi Processing  
+- [x] Parallel Processing and Multi Processing  
