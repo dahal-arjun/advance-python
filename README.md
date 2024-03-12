@@ -44,3 +44,7 @@ Topics Covered:
 - [ ] Decorators
 - [x] Context Manager (syncronus and asyncronus) 
 - [x] Parallel Processing and Multi Processing  
+- [x] Iterator and Iterable
+- [x] Generators
+- [x] List Comprehensions
+- [x] 
