@@ -41,10 +41,11 @@ Would love to widen the visibility and see other unseen things.
 Topics Covered:
 - [x] Mutable vs Immutable
 - [x] Built In Methods (will continue)
-- [ ] Decorators
-- [x] Context Manager (syncronus and asyncronus) 
+- [x] Context Manager (synchronous and asynchronous) 
 - [x] Parallel Processing and Multi Processing  
 - [x] Iterator and Iterable
 - [x] Generators
 - [x] List Comprehensions
-- [x] 
+- [ ] Decorators
+- [ ] OOP
+- [ ] Design Patterns

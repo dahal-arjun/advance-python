@@ -80,10 +80,10 @@ The syntax of a generator expression is almost the same as that of a list
 comprehension. You only need to turn the square brackets ([]) into parentheses:
 """
 
-[item for item in [1, 2, 3, 4]]  # List comprehension
+var = [item for item in [1, 2, 3, 4]]  # List comprehension
 
 
-(item for item in [1, 2, 3, 4])  # Generator expression
+var = (item for item in [1, 2, 3, 4])  # Generator expression
 
 
 generator_expression = (item for item in [1, 2, 3, 4])

@@ -92,7 +92,7 @@ Yielding the Original Data
 """
 
 
-class SquenceItertor:
+class SequenceIterator:
 
     def __init__(self, sequence):
         self._sequence = sequence
@@ -102,7 +102,7 @@ class SquenceItertor:
         return self
 
     def __next__(self):
-        if (self._index < len(self._sequence)):
+        if self._index < len(self._sequence):
             item = self._sequence[self._index]
             self._index += 1
             return item
@@ -117,7 +117,7 @@ case its .__next__() method will still work. However, you must implement
 This loop always calls .__iter__() to initialize the iterator.
 """
 
-for item in SquenceItertor([1, 2, 3, 4]):
+for item in SequenceIterator([1, 2, 3, 4]):
     print(item)
 
 """
@@ -125,7 +125,7 @@ how Python’s for loops work internally.
 The following code simulates the complete process:
 """
 
-sequence = SquenceItertor([1, 2, 3, 4])
+sequence = SequenceIterator([1, 2, 3, 4])
 
 iterator = sequence.__iter__()
 while True:

@@ -23,7 +23,7 @@ Asynchronous Context Manager
 """
 
 
-class AsyncContenxtManager:
+class AsyncContextManager:
     def __init__(self, url):
         self._url = url
 
@@ -37,7 +37,7 @@ class AsyncContenxtManager:
 
 
 async def check(url):
-    async with AsyncContenxtManager(url) as response:
+    async with AsyncContextManager(url) as response:
         html = await response.text()
         print(html)
 
