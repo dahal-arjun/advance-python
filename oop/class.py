@@ -67,43 +67,43 @@ the existing public method signatures, and no one is the wiser (hopefully).
 Let's now learn to create a class in python
 https://docs.python.org/3/tutorial/classes.html (reference)
 
-Classes provide a means of bundling data and functionality together. 
-Creating a new class creates a new type of object, allowing new instances of that type to be made. 
-Each class instance can have attributes attached to it for maintaining its state. 
+Classes provide a means of bundling data and functionality together.
+Creating a new class creates a new type of object, allowing new instances of that type to be made.
+Each class instance can have attributes attached to it for maintaining its state.
 Class instances can also have methods (defined by its class) for modifying its state.
 
 Keep this in mind::
-Objects can contain arbitrary amounts and kinds of data. As is true for modules, classes partake of the dynamic nature 
+Objects can contain arbitrary amounts and kinds of data. As is true for modules, classes partake of the dynamic nature
 of Python: they are created at runtime, and can be modified further after creation.
 
-Before introducing classes, I first have to tell you something about Python’s scope rules. Class definitions play some 
-neat tricks with namespaces, and you need to know how scopes and namespaces work to fully understand what’s going on. 
+Before introducing classes, I first have to tell you something about Python’s scope rules. Class definitions play some
+neat tricks with namespaces, and you need to know how scopes and namespaces work to fully understand what’s going on.
 Incidentally, knowledge about this subject is useful for any advanced Python programmer.
 """
 
 
 """
-A namespace is a mapping from names to objects. Most namespaces are currently implemented as Python dictionaries, but 
-that’s normally not noticeable in any way (except for performance), and it may change in the future. Examples of 
+A namespace is a mapping from names to objects. Most namespaces are currently implemented as Python dictionaries, but
+that’s normally not noticeable in any way (except for performance), and it may change in the future. Examples of
 namespaces are: the set of built-in names (containing functions such as abs(), and built-in exception names); the global
-names in a module; and the local names in a function invocation. In a sense the set of attributes of an object also 
+names in a module; and the local names in a function invocation. In a sense the set of attributes of an object also
 form a namespace. The important thing to know about namespaces is that there is absolutely no relation between names in
-different namespaces; for instance, two different modules may both define a function maximize without confusion — 
+different namespaces; for instance, two different modules may both define a function maximize without confusion —
 users of the modules must prefix it with the module name.
 
 The namespace containing the built-in names is created when the Python interpreter starts up, and is never deleted.
-The global namespace for a module is created when the module definition is read in; normally, 
+The global namespace for a module is created when the module definition is read in; normally,
 module namespaces also last until the interpreter quits.
 
 The local namespace for a function is created when the function is called, and is deleted when the function returns.
 
-A special quirk of Python is that – if no global or nonlocal statement is in effect – assignments to names always go 
-into the innermost scope. Assignments do not copy data — they just bind names to objects. The same is true for 
-deletions: the statement del x removes the binding of x from the namespace referenced by the local scope. 
-In fact, all operations that introduce new names use the local scope: in particular, import statements and function 
+A special quirk of Python is that – if no global or nonlocal statement is in effect – assignments to names always go
+into the innermost scope. Assignments do not copy data — they just bind names to objects. The same is true for
+deletions: the statement del x removes the binding of x from the namespace referenced by the local scope.
+In fact, all operations that introduce new names use the local scope: in particular, import statements and function
 definitions bind the module or function name in the local scope.
 
-The global statement can be used to indicate that particular variables live in the global scope and should be rebound 
+The global statement can be used to indicate that particular variables live in the global scope and should be rebound
 there; the nonlocal statement indicates that particular variables live in an enclosing scope and should be rebound there
 """
 
@@ -131,3 +131,26 @@ def scope_test():
 
 scope_test()
 print("In global scope:", spam)
+
+class SampleClass:
+    ''' A Simple class'''
+    i = 12345
+
+    def f(self):
+        return 'hello world'
+
+
+
+def __init__(self):
+    self.data = []
+
+SampleClass.__init__ = __init__
+
+x = SampleClass()
+
+
+'''
+Found this section a bit long will continue it later.
+The general concept is convered there above will look into the modifiers, access control
+and other stuffs in future while continuing the series.
+'''
